@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
-
+import React from "react";
+import { useEffect,useState } from "react";
 function App() {
-  const[count,setCount]=useState(0);
-  useEffect(()=>{
-    setCount(1)
-  })
+  const [sam, setSam] = useState();
+  useEffect(() => {
+    setSam(980);
+  }, []);
   return (
     <div>
-      <h1>{count}</h1>
+      <h1>Your number is {sam}</h1>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
