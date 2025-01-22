@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
 function App() {
-  const [sam,setSam]=useState('Ram');
-
+  const[count,setCount]=useState(0);
   useEffect(()=>{
-    setSam('component')
-  },[])
+    setCount(1)
+  })
   return (
     <div>
-      <h1>Sam is {sam}</h1>
-      
+      <h1>{count}</h1>
     </div>
   )
 }
