@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
 function App() {
-  const [sam,setSam]=useState('0');
+  const [sam,setSam]=useState('Ram');
 
   useEffect(()=>{
-    setSam(1)
-  })
+    setSam('component')
+  },[])
   return (
     <div>
       <h1>Sam is {sam}</h1>
