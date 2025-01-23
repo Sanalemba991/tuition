@@ -1,13 +1,15 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 function App() {
-  const [sam, setSam] = useState();
+  const [sam, setSam] = useState(0);
+
   useEffect(() => {
-    setSam(980);
+    document.title=(`the count is ${sam}`);
   });
   return (
     <div>
-      <h1>Your number is {sam}</h1>
+      <h1>{sam}</h1>
+      <button onClick={() => setSam(sam + 1)}>incresse</button>
     </div>
   );
 }
