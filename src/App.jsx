@@ -13,17 +13,16 @@ const App = () => {
      
       })
      
-  }, []);
+  },);
 
 
 
   return (
-    <div style={{ textAlign: "center", fontFamily: "Arial, sans-serif" }}>
+    <div >
       <h1>{character.name}</h1>
       <img
         src={character.image}
-        alt={character.name}
-        style={{ borderRadius: "8px", width: "150px", height: "150px" }}
+        alt={character.name}  
       />
       <p>Status: {character.status}</p>
       <p>Species: {character.species}</p>
