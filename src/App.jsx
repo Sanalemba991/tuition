@@ -10,14 +10,11 @@ const App = () => {
         setCharacter(ram);
         console.log(ram);
       });
-  });
+  },[]);
 
   return (
     <div>
-      <h1>{character.name}</h1>
-      <img src={character.image} alt={character.name} />
-      <p>Status: {character.status}</p>
-      <p>Species: {character.species}</p>
+    
     </div>
   );
 };
