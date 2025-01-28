@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 
 function App() {
-  const [character, setCharacter] = useState([]);
+  const [sam, setSam] = useState([]);
+
   useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character/1")
-      .then((response) => response.json())
-      .then((data) => {
-        setCharacter(data);
+    const fetchSam = async () => {
+      try {
+        const response = await fetch(
+          "https://rickandmortyapi.com/api/character"
+        );
+        const data = await response.json();
+        setSam(data);
         console.log(data);
-      });
-  }, []);
-  return (
-    <div>
-      <h1> Name: {character.name}</h1>
-      <h1>Gender: {character.gender}</h1>
-      <h1>Status: {character.status}</h1>
-    </div>
-  );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchSam();
+  },[]);
+  return <div>
+    
+  </div>;
 }
 
 export default App;
