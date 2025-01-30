@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; //React Hooks
 
 function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    getData().then((result) => setData(result));
+    getData().then((result) => {
+      console.log(result);
+      setData(result);
+    });
   }, []);
   const getData = () => {
     return new Promise((resolve, reject) => {
@@ -17,12 +20,10 @@ function App() {
   return (
     <div>
       <h1>Name: {data.name}</h1>
-      <h2>Status:{data.status}</h2>
-      <h3>Species:{data.species}</h3>
-      <p>Gender:{data.gender}</p>
-      
+      <p>Species: {data.species}</p>
     </div>
   );
 }
 
 export default App;
+
