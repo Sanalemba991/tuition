@@ -6,7 +6,7 @@ function App() {
   useEffect(() => {
     getData()
       .then((result) => {
-        setData(result.results); // Set all character data
+        setData(result.results); 
       })
       .catch((error) => console.error(error));
   }, []);
