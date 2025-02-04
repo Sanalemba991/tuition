@@ -13,7 +13,7 @@ function App() {
 
   const getData = () => {
     return new Promise((resolve, reject) => {
-      fetch("https://rickandmortyapi.com/api/character")
+      fetch("https://rickandmortyapi.com/api/character/2")
         .then((response) => response.json())
         .then((data) => resolve(data))
         .catch(() => reject("Error While Fetching"));
@@ -25,7 +25,7 @@ function App() {
       <h1>Rick and Morty Characters</h1>
       {data.map((character) => (
         <div key={character.id}>
-          <h2>Name: {character.name}</h2>
+          <h2 className="sam">Name: {character.name}</h2>
           <p>Species: {character.species}</p>
           <img src={character.image} alt={character.name} width="150" />
         </div>
