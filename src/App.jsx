@@ -13,7 +13,7 @@ function App() {
 
   const getData = () => {
     return new Promise((resolve, reject) => {
-      fetch("https://rickandmortyapi.com/api/character/2")
+      fetch("https://rickandmortyapi.com/api/character")
         .then((response) => response.json())
         .then((data) => resolve(data))
         .catch(() => reject("Error While Fetching"));
