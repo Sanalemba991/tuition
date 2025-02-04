@@ -12,6 +12,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.sam{
+  background-color: yellow;
+}
 
 a {
   font-weight: 500;
