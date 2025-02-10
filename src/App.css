@@ -74,3 +74,7 @@ button:hover:not(:disabled) {
   height:25px;
   border-radius: 9px;
 }
+
+.Am{
+height: 30px;
+}

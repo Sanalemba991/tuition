@@ -1,36 +1,35 @@
 import React, { useEffect, useState } from "react";
-import './App.css';
+import "./App.css";
 
 function App() {
-  const [characters, setCharacters] = useState([]);
+  const [anganba, setAnganba] = useState([]);
   const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetch(`https://rickandmortyapi.com/api/character/?page=${page}`)
       .then((response) => response.json())
       .then((data) => {
-        setCharacters(data.results);
+        setAnganba(data.results);
         console.log(data);
       });
   }, [page]);
-
-  const filteredCharacters = characters.filter(character => 
-    character.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteresChaaracter = anganba.filter(anganbas => 
+    anganbas.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <div>
       <div className="alls">
-        <h1>Rick and Morty API Integration</h1>
-        <input cl
+        <h1>Rick and Morty</h1>
+        <input
+        className="Am"
           type="text"
-          placeholder="Search characters..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="search-bar"
+          placeholder="enter a name"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-        {filteredCharacters.map((character) => (
+        {filteresChaaracter.map((character) => (
           <div className="all" key={character.id}>
             <h2 className="anganba">Name: {character.name}</h2>
             <p className="anganbaP">Species: {character.species}</p>
