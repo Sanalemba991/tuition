@@ -1,40 +1,52 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 function App() {
-  const [characters, setCharacters] = useState([]);
-  const [page, setPage] = useState(1); 
-  const [totalPages, setTotalPages] = useState(1); 
+  const [anganba, setAnganba] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character?page=${page}`)
+    fetch(`https://rickandmortyapi.com/api/character/?page=${page}`)
       .then((response) => response.json())
       .then((data) => {
-        setCharacters(data.results);
-        console.log(data)
-        setTotalPages(data.info.pages);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
+        setAnganba(data.results);
+        console.log(data);
+      });
   }, [page]);
 
   return (
     <div>
-      <h1>Rick and Morty</h1>
-      {characters.map((character) => (
-        <div key={character.id}>
-          <h2>Name: {character.name}</h2>
-          <p>Species: {character.species}</p>
-          <img src={character.image} alt={character.name} width="160" />
-        </div>
-      ))}
+      <div className="alls">
+        <h1>Rick and Morty</h1>
+        {anganba.map((character) => (
+          <div className="all" key={character.id}>
+            <h2 className="anganba">Name: {character.name}</h2>
+            <p className="anganbaP">Species: {character.species}</p>
+            <img
+              className="img"
+              src={character.image}
+              alt={character.name}
+              width="160"
+            />
+          </div>
+        ))}
+      </div>
       <div>
-        <button onClick={() => setPage(page - 1)} disabled={page === 1}>
+        <button
+          onClick={() => {
+            setPage(page - 1);
+          }}
+          disabled={page === 1}
+        >
           Previous
         </button>
-        <button onClick={() => setPage(page + 1)} disabled={page === totalPages}>
+        <button
+          onClick={() => {
+            setPage(page + 1);
+          }}
+        >
           Next
         </button>
       </div>
-      <p>Page {page} of {totalPages}</p>
     </div>
   );
 }
