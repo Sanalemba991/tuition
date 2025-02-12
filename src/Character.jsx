@@ -37,7 +37,7 @@ function Character() {
               <p>Species: {character.species}</p>
               <img src={character.image} alt={character.name} width="160" />
               <div className="link-wrapper">
-                <Link to={`/read/${character.id}`}>Read More</Link>
+                <Link to={`/character/${character.id}`}>Read More</Link>
               </div>
             </div>
           ))}

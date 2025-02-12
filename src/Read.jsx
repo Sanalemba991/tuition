@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 function Read() {
   const { id } = useParams();
-  const [character, setCharacter] = useState(null);
+  const [character, setCharacter] = useState();
 
   useEffect(() => {
     fetch(`https://rickandmortyapi.com/api/character/${id}`)
