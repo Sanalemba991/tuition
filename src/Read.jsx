@@ -11,7 +11,7 @@ function Read() {
       .then(data => setCharacter(data));
   }, [id]);
 
-  if (!character) return <p>Loading...</p>;
+  if (!character) return <h1>Loading...</h1>;
 
   return (
     <div className="read-character">
