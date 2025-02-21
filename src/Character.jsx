@@ -1,55 +1,30 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-function Character() {
-  const [characters, setCharacters] = useState([]);
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
+import React, { useEffect, useState } from "react";
+
+function Effect() {
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character/?page=${page}`)
+    fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
-      .then((data) => {
-        setCharacters(data.results);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, [page]);
-
-  const filteredCharacters = characters.filter((character) =>
-    character.name.toLowerCase().includes(search.toLowerCase())
-  );
+      .then((data) => setProducts(data)) 
+ 
+  }, []);
 
   return (
-    <div className="character-container">
-      <h1>Rick and Morty</h1>
-      <input
-        className="search-input"
-        type="text"
-        placeholder="Enter a character name"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-
-      <div className="character-list">
-        {filteredCharacters.map((character) => (
-          <div className="character-card" key={character.id}>
-            <h2>{character.name}</h2>
-            <p>Species: {character.species}</p>
-            <img src={character.image} alt={character.name} width="160" />
-            <div className="link-wrapper">
-              <Link to={`/character/${character.id}`}>Go to full page</Link>
-            </div>
-          </div>
+    <div>
+      <h1>Product List</h1>
+      <ul>
+        {products.map((product) => (
+          <li key={product.id}>
+            <h2>{product.title}</h2>
+            <img src={product.image} alt={product.title} width="100" />
+            <p>{product.description}</p>
+            <p>Price: ${product.price}</p>
+          </li>
         ))}
-      </div>
-
-      <div className="pagination">
-        <button onClick={() => setPage(page - 1)} disabled={page === 1}>
-          Previous
-        </button>
-        <button onClick={() => setPage(page + 1)}>Next</button>
-      </div>
+      </ul>
     </div>
   );
 }
-export default Character;
+
+export default Effect;
