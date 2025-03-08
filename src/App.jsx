@@ -1,46 +1,95 @@
 import React, { useEffect, useState } from "react";
 
-function New() {
-  const [Mrt, setMrt] = useState([]);
+function App() {
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3000/products")
-      .then((response) => response.json())
-      .then((data) => {
-        setMrt(data);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
       })
-      .catch((error) => console.error("Error fetching data", error));
+      .then((data) => {
+        console.log("Fetched data:", data);
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error.message);
+        setError("Failed to load data. Check API connection.");
+        setLoading(false);
+      });
   }, []);
 
-  const filteredMrt = Mrt.filter((tin) =>
-    tin.title.toLowerCase().includes(search.toLowerCase())
+  const filteredProducts = products.filter((product) =>
+    product.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div>
-      <h1>Fetching Data</h1>
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      <h1>Product List</h1>
       <input
         type="text"
-        placeholder="Enter a title"
+        placeholder="Search by name"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        style={{
+          padding: "8px",
+          marginBottom: "15px",
+          width: "100%",
+          maxWidth: "300px",
+        }}
       />
-      {filteredMrt.length > 0 ? (
-        filteredMrt.map((tin) => (
-          <div key={tin.id}>
-            <p><strong>Id:</strong> {tin.id}</p>
-            <p><strong>Title:</strong> {tin.title}</p>
-            <p><strong>Brand:</strong> {tin.Brand}</p>
-            <p><strong>Price:</strong> {tin.price}</p>
-            <img src={tin.image} alt={tin.title} width="150" />
+
+      {loading && <p>Loading data...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {!loading && !error && filteredProducts.length > 0 ? (
+        filteredProducts.map((product) => (
+          <div
+            key={product.id}
+            style={{
+              border: "1px solid #ddd",
+              padding: "15px",
+              marginBottom: "10px",
+              borderRadius: "5px",
+            }}
+          >
+            <p>
+              <strong>Id:</strong> {product.id}
+            </p>
+            <p>
+              <strong>Name:</strong> {product.name}
+            </p>
+            <p>
+              <strong>Price:</strong> ${product.price}
+            </p>
+            <p>
+              <strong>Category:</strong> {product.category}
+            </p>
+            <p>
+              <strong>Description:</strong> <br /> {product.description}
+            </p>
+            {product.image && (
+              <img
+                src={product.image}
+                alt={product.name}
+                width="150"
+                style={{ marginTop: "10px", borderRadius: "5px" }}
+              />
+            )}
           </div>
         ))
       ) : (
-        <p>No matching results found.</p>
+        !loading && <p>No matching results found.</p>
       )}
     </div>
   );
 }
 
-export default New;
+export default App;

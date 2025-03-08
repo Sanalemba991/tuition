@@ -1,58 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const AddProduct = () => {
-  const [product, setProduct] = useState({ name: "", price: "" });
+const API_URL = "http://localhost:5000/products";
 
-  const handleChange = (e) => {
-    setProduct({ ...product, [e.target.name]: e.target.value });
-  };
+export default function Add() {
+  const [products, setProducts] = useState([]);
+  const [newProduct, setNewProduct] = useState({ name: "", price: "" });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:5000/products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(product),
-      });
+  // Fetch products from JSON server
+  useEffect(() => {
+    fetch(API_URL)
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((error) => console.error("Error fetching products:", error));
+  }, []);
 
-      if (response.ok) {
-        alert("Product added successfully!");
-        setProduct({ name: "", price: "" }); // Reset form
-      } else {
-        alert("Failed to add product");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+  // Add a new product to the JSON server
+  const addProduct = () => {
+    fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: newProduct.name,
+        price: Number(newProduct.price),
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => setProducts([...products, data]))
+      .catch((error) => console.error("Error adding product:", error));
   };
 
   return (
     <div>
-      <h2>Add Product</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={product.name}
-          onChange={handleChange}
-          placeholder="Product Name"
-          required
-        />
-        <input
-          type="number"
-          name="price"
-          value={product.price}
-          onChange={handleChange}
-          placeholder="Price"
-          required
-        />
-        <button type="submit">Add Product</button>
-      </form>
+      <h2>Product List</h2>
+      <ul>
+        {products.map((product) => (
+          <li key={product.id}>
+            {product.name} - ${product.price}
+          </li>
+        ))}
+      </ul>
+
+      <h3>Add Product</h3>
+      <input
+        type="text"
+        placeholder="Name"
+        value={newProduct.name}
+        onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+      />
+      <input
+        type="number"
+        placeholder="Price"
+        value={newProduct.price}
+        onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+      />
+      <button onClick={addProduct}>Add</button>
     </div>
   );
-};
-
-export default AddProduct;
+}
