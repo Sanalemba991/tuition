@@ -5,7 +5,7 @@ const API_URL = "http://localhost:5000/products";
 export default function Add() {
   const [products, setProducts] = useState([]);
   const [newProduct, setNewProduct] = useState({ name: "", price: "" });
-
+oj4rj34row
   // Fetch products from JSON server
   useEffect(() => {
     fetch(API_URL)
